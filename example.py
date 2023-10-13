@@ -6,12 +6,16 @@ import asyncio
 
 counter=1
 
-async def count(word):
+async def count(word, nsleep):
     global counter
-    print(word)
+        
+    ind=0
+    while ind < nsleep+4:
+        print(word, "rodando")
+        await asyncio.sleep(nsleep)
+        ind+=1
+    
     counter+=1
-    await asyncio.sleep(1)
-    print("end")
     print(counter)
     
 
@@ -23,7 +27,8 @@ async def end():
     print("real end", counter)
 
 async def main():
-    await asyncio.gather(count("a"), count("b"), count("c"), hello())
+    await asyncio.gather(count("processo 1", 1), count("processo 2",2), count("processo 3",3), hello())
+    print("agora sim")
 
 if __name__ == "__main__":
     asyncio.run(main())
